@@ -22,7 +22,7 @@ Group Name : **BatCloud | Group 27**
 # **1. Architecture overview**
 **Application URL: <http://boggle-game.us-east-1.elasticbeanstalk.com/>**
 
-<img src="https://github.com/Vatsalyadav/boggle-aws/blob/main/readme_images/005.png" />
+<img src="https://github.com/AnkushMudgal/boggle-aws/blob/2c74b4af88208d02e020171fdc9fdb9c7cba4b24/readme_images/Final_Architecture.png" />
 
 *Figure 1 - Final Application Architecture Diagram*
 
@@ -53,7 +53,7 @@ Our application is deployed to the cloud by using the AWS Elastic Beanstalk serv
 There are few changes in the final architecture as compared to the original project proposal architecture. Initial architecture suggested triggering two lambda functions – send leadership board data periodically and update the leadership board by invoking them from another lambda function. However, to achieve the scenarios mentioned above we have used Amazon EventBridge [2] and API Gateway respectively.
 
 
-<img src="https://github.com/Vatsalyadav/boggle-aws/blob/main/readme_images/006.png" />
+<img src="https://github.com/AnkushMudgal/boggle-aws/blob/2c74b4af88208d02e020171fdc9fdb9c7cba4b24/readme_images/SNS_Lambda.png" />
 
 
 *Figure 2 -Old proposed architecture for the Triggering of SNS through Lambda.*
@@ -61,7 +61,7 @@ There are few changes in the final architecture as compared to the original proj
 To use the Simple Notification Service, the initial plan was to write a lambda function (Figure 1) only to send emails using SNS assuming that the subscription list is already updated in the SNS topic. This approach later made us realize that it is technically not possible to have all the users added to the subscription list manually. It was then decided that instead of having one lambda function for SNS, there would be two – one for subscription and another for publishing the messages (Figure 2). The subscription lambda function will be triggered using the API Gateway which is being called from the frontend application on successful signup of the user. After the user has confirmed the subscription, their status in the SNS topic will change from pending confirmation to confirmed and they would become eligible to receive emails later via publish method. Publishing messages through the SNS lambda function will be activated using the Amazon EventBridge, which provides the functionality to schedule the target based on days, hours, or minutes. The event bridge rule in our application will trigger the publish lambda function weekly and which will send the emails to the subscribed users.
 
 
-<img src="https://github.com/Vatsalyadav/boggle-aws/blob/main/readme_images/007.jpeg" />
+<img src="https://github.com/AnkushMudgal/boggle-aws/blob/2c74b4af88208d02e020171fdc9fdb9c7cba4b24/readme_images/PUB_SUB.jpeg" />
 
 *Figure 3 - New Architecture has two different lambdas for Subscription and Publishing.*
 
@@ -112,7 +112,7 @@ The most important cloud mechanism for our application is AWS Lambda which we sh
 
 
 # **7. Cloud Formation**
-<img src="https://github.com/Vatsalyadav/boggle-aws/blob/main/readme_images/cloud-formation.jpeg" />
+<img src="https://github.com/AnkushMudgal/boggle-aws/blob/2c74b4af88208d02e020171fdc9fdb9c7cba4b24/readme_images/cloud-formation.jpeg" />
 
 *Figure 4 - Cloud Formation diagram for the AWS Cloud Mechanisms*
 
